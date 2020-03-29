@@ -11,5 +11,5 @@ public class Cylinder extends Tube {
 		height=h;
 	}
 	@Override
-	public Vector getNormal(Point3D _p){return null;}
+	public Vector getNormal(Point3D _p){return super.getNormal(_p);}
 }

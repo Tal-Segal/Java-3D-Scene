@@ -1,9 +1,7 @@
 package unittests;
-import primitives.*;
 import static primitives.Util.*;
-import static java.lang.System.out;
 import static org.junit.Assert.*;
-import java.lang.Math;
+import primitives.Vector;
 
 import org.junit.Test;
 
@@ -35,7 +33,7 @@ public class VectorTests {
 	public void testAdd() {
 		Vector v1 = new Vector(1,7,-8);
 		Vector v2 = new Vector(3,7,0);
-		assertEquals("Add() wrong result length", v1.getPoint().add(v2), v1.add(v2));
+		assertEquals("Add() wrong result length", new Vector(4,14,-8), v1.add(v2));
 	}
 	/**
      * Test method for {@link primitives.Vector#Subtract(primitives.Point3D)}.
@@ -55,8 +53,6 @@ public class VectorTests {
 	public void testDotProduct() {
 		Vector v1 = new Vector(1, 2, 3);
 		Vector v2 = new Vector(-2, -4, -6);
-		Vector v3 = new Vector(0, 3, -2);
-		assertTrue("ERROR: dotProduct() result is not zero", isZero(v1.dotProduct(v2)));
 		assertTrue("ERROR: dotProduct() wrong value",isZero(v1.dotProduct(v2) + 28));
 	
 	}

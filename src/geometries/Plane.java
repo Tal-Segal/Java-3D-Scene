@@ -6,7 +6,7 @@ import primitives.Vector;
 public class Plane implements Geometry{
 
 	Point3D p;
-	Vector v;
+	Vector v; //normal
 	
 	public Plane(Point3D _p, Vector _v) {
 		p=_p;
@@ -14,7 +14,9 @@ public class Plane implements Geometry{
 	}
 	public Plane(Point3D p1, Point3D p2, Point3D p3) {
 		p=p1;
-		v=new Vector(p3.subtract(p2));
+		Vector v1= p1.subtract(p2);
+		Vector v2= p1.subtract(p3);
+		v=v1.crossProduct(v2);	
 	}
 	public Point3D getPoint() {return p;}
 	public Vector getVector() {return v;}
@@ -23,7 +25,7 @@ public class Plane implements Geometry{
         return "" + p.toString() +" "+ v.toString();
     }
 	@Override
-	public Vector getNormal(Point3D _p) {return null;}
-	
-
+	public Vector getNormal(Point3D _p) {
+		return v.normalize();
+	}
 }
