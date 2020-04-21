@@ -11,7 +11,8 @@ import primitives.Ray;
 import primitives.Vector;
 
 public class TubeTests {
-
+	
+	// ============ Equivalence Partitions Tests ==============
 	@Test
 	public void testGetNormal() {
 		Ray r= new Ray(new Vector(0,0,1), new Point3D(0,0,0));
