@@ -1,7 +1,14 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import static primitives.Util.*;
+
+import java.util.List;
+
+
 
 public class Plane implements Geometry{
 
@@ -26,6 +33,27 @@ public class Plane implements Geometry{
     }
 	@Override
 	public Vector getNormal(Point3D _p) {
-		return v.normalize();
+		return v.normalize();}
+		
+	@Override
+	public List<Point3D> findIntersections (Ray ray)
+	{
+		// TODO Auto-generated method stub
+		  Vector p0Q;
+	        try {
+	            p0Q = p.subtract(ray.getPoint());
+	        } catch (IllegalArgumentException e) {
+	            return null; // ray starts from point Q - no intersections
+	        }
+
+	        double nv = v.dotProduct(ray.getVector());
+	        if (isZero(nv)) // ray is parallel to the plane - no intersections
+	            return null;
+
+	        double t = alignZero(v.dotProduct(p0Q) / nv);
+
+	        return t <= 0 ? null : List.of(ray.getTargetPoint(t));
+	 }
+
 	}
-}
+

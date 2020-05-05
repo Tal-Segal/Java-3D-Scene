@@ -1,6 +1,6 @@
 package primitives;
 import primitives.Vector;
-
+import static primitives.Util.*;
 public final class Ray {
 
 	Vector v;
@@ -9,8 +9,8 @@ public final class Ray {
 	public Ray(Vector _v, Point3D _p) {
 		try
 		{
-			if (_v.length()!=1)
-				throw new IllegalArgumentException("Vector must be normalized");
+			/*if (_v.length()!=1)
+				throw new IllegalArgumentException("Vector must be normalized");*/
 			v=_v;
 			p=_p;
 		}
@@ -19,12 +19,20 @@ public final class Ray {
 			System.out.println(e);
 		}
 	}
+	
+	
 	public Ray(Ray r) {
 		v=r.v;
 		p=r.p;
 	}
+	
+	
 	public Vector getVector() {return v;}
+	
+	
 	public Point3D getPoint() {return p;}
+	
+	
 	@Override
 	   public boolean equals(Object obj) {
 	      if (this == obj) return true;
@@ -36,5 +44,12 @@ public final class Ray {
 	@Override
 	public String toString() {
 		return "" + p.toString() +" "+ v.toString();
+	
  }
+	
+	
+	public Point3D getTargetPoint(double length) 
+    {
+         return isZero(length ) ?p : p.add(v.scale(length));
+    }
 }

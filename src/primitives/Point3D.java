@@ -44,7 +44,7 @@ public final class Point3D {
 	    }
 	 public Vector subtract(Point3D _p)
 	 {		 
-		 return new Vector(getX().get()-_p.getX().get(),getY().get()-_p.getY().get(), getZ().get()-_p.getZ().get());
+		 return new Vector(this.getX().get() - _p.getX().get(), this.getY().get() - _p.getY().get(), this.getZ().get() - _p.getZ().get());
 	 }
 	 public Point3D add(Vector v)
 	 {		 

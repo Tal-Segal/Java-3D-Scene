@@ -50,9 +50,9 @@ public final class Vector {
         return "" + p.toString();
     }
 	public double lengthSquared()
-	{
-		return p.getX().get()*p.getX().get() + p.getY().get()*p.getY().get() + p.getZ().get()*p.getZ().get();
-	}
+	 {
+		 return p.getX().get()*p.getX().get()+p.getY().get()*p.getY().get()+p.getZ().get()*p.getZ().get();
+	 }
 	public double length()
 	{
 		return Math.sqrt(lengthSquared());
@@ -63,18 +63,17 @@ public final class Vector {
 	}
 	public Vector subtract(Vector _v)
 	{
-		return new Vector(p.subtract(_v.p));
+		Vector nv=new Vector(this.p.subtract(_v.p));
+		return nv;
 	}
 	public Vector scale(double num)
 	{
 		return new Vector(p.getX().get()*num,p.getY().get()*num,p.getZ().get()*num);
 	}
-	public double dotProduct(Vector _v)
-	{
-		return  p.getX().get()*_v.getPoint().getX().get()+
-				p.getY().get()*_v.getPoint().getY().get()+
-				p.getZ().get()*_v.getPoint().getZ().get();
-	}
+	 public double dotProduct(Vector vector) 
+	 {
+	        return p.getX().get() * vector.p.getX().get() +p.getY().get() * vector.p.getY().get() + p.getZ().get() * vector.p.getZ().get();
+	 }
 	public Vector crossProduct(Vector _v)
 	{
 	

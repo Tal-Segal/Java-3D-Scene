@@ -9,7 +9,11 @@ import geometries.Tube;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
+/**
+ * Testing Tubes
+ * @author Avital & Tal
+ *
+ */
 public class TubeTests {
 	
 	// ============ Equivalence Partitions Tests ==============
