@@ -5,7 +5,7 @@ import java.lang.Math;
 public final class Vector {
 
 	Point3D p;
-	public final Point3D ZERO= new Point3D(0, 0, 0);
+	public static final Point3D ZERO= new Point3D(0, 0, 0);
 	
 	public Vector(Point3D _p) {
 
