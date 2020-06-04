@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 import primitives.*;
 import static primitives.Util.*;
@@ -10,7 +11,7 @@ import static primitives.Util.*;
  * 
  * @author Author Avital & Tal
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -19,6 +20,7 @@ public class Polygon implements Geometry {
      * Associated plane in which the polygon lays
      */
     protected Plane _plane;
+    
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
@@ -41,8 +43,11 @@ public class Polygon implements Geometry {
      *                                  <li>The polygon is concave (not convex></li>
      *                                  </ul>
      */
-    public Polygon(Point3D... vertices) {
-        if (vertices.length < 3)
+    public Polygon(Color emissionLight, Material material, Point3D... vertices) {
+    	
+       super(emissionLight, material);
+       
+    	if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
         // Generate the plane according to the first three vertices and associate the
@@ -51,7 +56,7 @@ public class Polygon implements Geometry {
         _plane = new Plane(vertices[0], vertices[1], vertices[2]);
         if (vertices.length == 3) return; // no need for more tests for a Triangle
 
-        Vector n = _plane.getNormal(_plane.getPoint());
+        Vector n = _plane.getNormal(_plane.p);
 
         // Subtracting any subsequent points will throw an IllegalArgumentException
         // because of Zero Vector if they are in the same point
@@ -79,36 +84,32 @@ public class Polygon implements Geometry {
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
     }
+    /**
+     * Constructor with color and list of points
+     * @param emissionLight
+     * @param vertices
+     */
+    public Polygon(Color emissionLight, Point3D... vertices) {
+        this(emissionLight, new Material(0, 0, 0), vertices);
+    }
+    /**
+     * Constructor with list of points
+     * @param vertices
+     */
+    public Polygon(Point3D... vertices) {
+        this(Color.BLACK, new Material(0, 0, 0), vertices);
+    }
 
     @Override
     public Vector getNormal(Point3D point) {
-        return _plane.getNormal(_plane.getPoint());
+        return _plane.getNormal(_plane.p);
     }
+    
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersections = _plane.findIntersections(ray);
-        if (intersections == null) return null;
+	public List<GeoPoint> findIntersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        Point3D p0 = ray.getPoint();
-        Vector v = ray.getVector();
-
-        Vector v1  = _vertices.get(1).subtract(p0);
-        Vector v2 = _vertices.get(0).subtract(p0);
-        double sign = v.dotProduct(v1.crossProduct(v2));
-        if (isZero(sign))
-            return null;
-
-        boolean positive = sign > 0;
-
-        for (int i = _vertices.size() - 1; i > 0; --i) {
-            v1 = v2;
-            v2 = _vertices.get(i).subtract(p0);
-            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-            if (isZero(sign)) return null;
-            if (positive != (sign >0)) return null;
-        }
-
-        return intersections;
-    }
     
 }

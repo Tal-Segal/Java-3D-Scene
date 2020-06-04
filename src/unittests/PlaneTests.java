@@ -1,6 +1,7 @@
 package unittests;
 
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 import static org.junit.Assert.*;
@@ -50,13 +51,13 @@ public class PlaneTests {
 
 		// TC01: Ray intersects the plane
 
-		Point3D p1 = new Point3D(1,2,2);
-		        List<Point3D> result = plane.findIntersections(new Ray(new Vector(-0.5,0,0), new Point3D(2,2,2)));
+		GeoPoint p1 = new GeoPoint(plane,new Point3D(1,2,2));
+		        List<GeoPoint> result = plane.findIntersections(new Ray(new Vector(-0.5,0,0), new Point3D(2,2,2)));
 		        assertEquals("Wrong number of points",1, result.size());
 		        assertEquals("Ray crosses plane", List.of(p1), result);
 		
 		// TC02: Ray and plane are parallel
-        List<Point3D> result1 = plane.findIntersections(new Ray(new Vector(-1.35, -11.06, -0.49), new Point3D(-1.52, -5.18, 3.45)));
+        List<GeoPoint> result1 = plane.findIntersections(new Ray(new Vector(-1.35, -11.06, -0.49), new Point3D(-1.52, -5.18, 3.45)));
         assertEquals("Ray crosses plane", null, result1);
 
 		
@@ -65,23 +66,23 @@ public class PlaneTests {
 		
         // TC03:Ray is parallel to the plane,the ray not included in the plan
 	       
-        List<Point3D> result2 = plane.findIntersections(new Ray(new Vector(-1.35, -11.06, -0.49), new Point3D(-1.52, -5.18, 3.45)));
+        List<GeoPoint> result2 = plane.findIntersections(new Ray(new Vector(-1.35, -11.06, -0.49), new Point3D(-1.52, -5.18, 3.45)));
         assertEquals("Ray crosses plane", null, result2);
     
         // TC04: Ray is orthogonal to the plane and starts before the plane
 
-        List<Point3D> result3 = plane.findIntersections(new Ray(new Vector(-15.14, 1.36,11.16), new Point3D(0,0,0)));
+        List<GeoPoint> result3 = plane.findIntersections(new Ray(new Vector(-15.14, 1.36,11.16), new Point3D(0,0,0)));
         assertEquals("Ray crosses plane", null, result3);
    
         // TC05: Ray is orthogonal to the plane and in the plane
 
-        List<Point3D> result4 = plane.findIntersections(new Ray(new Vector(-1,0,0), new Point3D(2,2,2)));
+        List<GeoPoint> result4 = plane.findIntersections(new Ray(new Vector(-1,0,0), new Point3D(2,2,2)));
         assertEquals("Wrong number of points",1, result4.size());
-        assertEquals("Ray crosses plane", List.of(new Point3D(1.0,2.0,2.0)), result4);
+        assertEquals("Ray crosses plane", List.of(new GeoPoint(plane,new Point3D(1.0,2.0,2.0))), result4);
        
         // TC06: Ray is orthogonal to the plane and after the plane
 
-        List<Point3D> result5 = plane.findIntersections(new Ray(new Vector(-1,0,0), new Point3D(-2,-2,-2)));
+        List<GeoPoint> result5 = plane.findIntersections(new Ray(new Vector(-1,0,0), new Point3D(-2,-2,-2)));
         assertEquals("Ray crosses plane", null, result5);
        
     }

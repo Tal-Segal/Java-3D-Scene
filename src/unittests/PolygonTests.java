@@ -2,7 +2,7 @@
  * 
  */
 package unittests;
-
+import geometries.Intersectable.GeoPoint;
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -106,7 +106,7 @@ public class PolygonTests {
 		
 		 // ============ Equivalence Partitions Tests ==============		
 		 //TC01 Ray starts Inside triangle
-		 assertEquals("Ray Inside the triangle",List.of(new Point3D(0,0,0.5)),triangle.findIntersections((new Ray(new Vector(0, -1, 0),new Point3D(0, 2, 0.5)))));
+		 assertEquals("Ray Inside the triangle",List.of(new GeoPoint(triangle,new Point3D(0,0,0.5))),triangle.findIntersections((new Ray(new Vector(0, -1, 0),new Point3D(0, 2, 0.5)))));
 		 //TC02 Ray starts Outside against edge
 		 assertEquals("Ray starts outside against edge",null,triangle.findIntersections((new Ray(new Vector(0, 8, 0),new Point3D(1, -4, -1)))));
 		 //TC03 Ray starts Outside against vertex

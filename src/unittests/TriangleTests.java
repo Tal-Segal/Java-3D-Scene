@@ -1,7 +1,5 @@
 package unittests;
-
 import static org.junit.Assert.*;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -11,7 +9,6 @@ import geometries.Triangle;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 /**
  * Testing Triangles
  * @author Avital & Tal
@@ -40,7 +37,7 @@ public class TriangleTests {
 		 // ============ Equivalence Partitions Tests ==============
 		
 		 //TC01 Ray starts inside the triangle
-		 assertEquals("Ray Inside the triangle",List.of(new Point3D(0,0,0.5)),triangle.findIntersections((new Ray(new Vector(0, -1, 0),new Point3D(0, 2, 0.5)))));
+		 assertEquals("Ray Inside the triangle", List.of(new Point3D(0,0,0.5)),List.of( triangle.findIntersections((new Ray(new Vector(0, -1, 0),new Point3D(0, 2, 0.5)))).get(0).getPoint()));
 		 //TC02 Ray starts Outside the against edge
 		 assertEquals("Ray starts outside against edge",null,triangle.findIntersections((new Ray( new Vector(0, 11, 0),new Point3D(0.5, -2, -1)))));
 		 //TC03 Ray starts Outside against vertex

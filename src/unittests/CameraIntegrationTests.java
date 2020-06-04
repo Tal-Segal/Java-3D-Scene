@@ -8,16 +8,21 @@ import org.junit.Test;
 
 import elements.Camera;
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
-
+/**
+ *  * Test class for intergration between the camera and findIntersection method
+ * @author Avital & Tal
+ *
+ */
 public class CameraIntegrationTests {
 
 	
     Camera cam1 = new Camera(Vector.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
     Camera cam2 = new Camera(new Point3D(0, 0, -0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));
 	
-	
+
     @Test
     public void constructRayThroughPixelWithSphere1()  {
         
@@ -31,7 +36,7 @@ public class CameraIntegrationTests {
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
                 Ray ray = cam1.constructRayThroughPixel(3,3,j,i,1,3,3);
-                List<Point3D> results = sph.findIntersections(ray);
+                List<GeoPoint> results = sph.findIntersections(ray);
                 if (results != null)
                     count += results.size();
             }
@@ -46,7 +51,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithSphere2() {
         Sphere sph =  new Sphere(2.5, new Point3D(0, 0, 2.5));
 
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels 
         int Nx =3;
@@ -69,7 +74,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithSphere3() {
         Sphere sph =  new Sphere(2, new Point3D(0, 0, 2));
 
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels
         int Nx =3;
@@ -92,7 +97,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithSphere4() { //decide which camera
         Sphere sph =  new Sphere(4, new Point3D(0, 0, -0.5));
 
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels
         int Nx =3;
@@ -115,7 +120,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithSphere5() { //decide which camera
         Sphere sph =  new Sphere(0.5, new Point3D(0, 0, -1));
 
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels
         int Nx =3;
@@ -138,7 +143,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithPlane1() { //decide which camera
         Plane pl =  new Plane(new Point3D(0,0,5), new Point3D(0,-3,5), new Point3D(3,-3,5));
         
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels
         int Nx =3;
@@ -162,7 +167,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithPlane2() { //decide which camera
     	Plane pl =  new Plane(new Point3D(0,0,2), new Vector(0,1,4));
         
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels
         int Nx =3;
@@ -186,7 +191,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithPlane3() { //decide which camera
     	Plane pl =  new Plane(new Point3D(0,0,5), new Vector(0,4,1));
         
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels
         int Nx =3;
@@ -209,7 +214,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithTriangle1() { //decide which camera
         Triangle t = new Triangle(new Point3D(0,-1,2), new Point3D(1,1,2), new Point3D(-1,1,2));
         
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels
         int Nx =3;
@@ -232,7 +237,7 @@ public class CameraIntegrationTests {
     public void constructRayThroughPixelWithTriangle2() { //decide which camera
         Triangle t = new Triangle(new Point3D(0,-20,2), new Point3D(1,1,2), new Point3D(-1,1,2));
         
-        List<Point3D> results;
+        List<GeoPoint> results;
         int count = 0;
         // number of pixels
         int Nx =3;

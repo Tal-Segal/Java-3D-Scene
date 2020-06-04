@@ -8,14 +8,18 @@ import primitives.Vector;
 public class Cylinder extends Tube {
 
 	double height;
+	
+	
 	public Cylinder(double _radius, double h,Ray r) {
 		super(_radius,r);
 		height=h;
 	}
+	
+	
 	@Override
 	public Vector getNormal(Point3D _p){return super.getNormal(_p);}
 	@Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         return super.findIntersections(ray);
     }
 }
