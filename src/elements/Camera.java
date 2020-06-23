@@ -2,6 +2,12 @@ package elements;
 
 import primitives.*;
 import static primitives.Util.*;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 /**
  * Class Camera is the class representing a scene's camera
  * 
@@ -91,7 +97,59 @@ public class Camera {
         return new Ray(Vij,p);
         
 	}
-
+	
+	public List<Ray> constructRaysThroughPixel (int nX, int nY, int j, int i, double screenDistance, double screenWidth,
+			double screenHeight, int raysAmount)
+	{
+		List<Ray> Rays = new ArrayList<Ray>();
+		int numOfRays = (int)Math.floor(Math.sqrt(raysAmount)); //num of rays in each row or column
+		
+		if (numOfRays==1) return List.of(constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight));
+		
+		Point3D Pc;
+		if (screenDistance!=0)
+			Pc = new Point3D(p.add(Vto.scale(screenDistance))); //center of the view plane
+		else
+			Pc = new Point3D(p);
+		
+		//height and width of a single pixel
+		double Ry = screenHeight / nY;
+		double Rx = screenWidth / nX;
+		//center of pixel:
+		double yi = (i - nY / 2d)*Ry + Ry / 2d;
+		double xj = (j - nX / 2d)*Rx + Rx / 2d;
+		
+		Point3D Pij = Pc;
+		
+        if (xj != 0)
+        {
+        	Pij = Pij.add(this.Vright.scale(-xj)); //move Pij to width center
+        }
+        if (yi != 0)
+        {
+        	Pij = Pij.add(this.Vup.scale(-yi)); //move Pij to height center
+        }
+        
+        double PRy = Ry / numOfRays; //height distance between each ray
+        double PRx = Rx / numOfRays; //width distance between each ray
+        
+        Point3D tmp = Pij; //center
+        //creating a grid in the pixel:
+        for (int row=0; row<numOfRays; row++) {
+        	double Pxj = (row - (numOfRays/2d)) * PRx + PRx/2d;
+        	for (int column=0; column<numOfRays; column++) {
+        		double Pyi = (column - (numOfRays/2d)) * PRy + PRy/2d;
+        		if (Pxj != 0)
+        			Pij = Pij.add(this.Vright.scale(-Pxj));
+        		if (Pyi != 0)
+        			Pij = Pij.add(this.Vup.scale(-Pyi)); 
+        		Rays.add(new Ray(Pij.subtract(p), p));
+        		Pij = tmp; //restart
+        	}
+        }
+        return Rays;
+	}
+	
 	
 	
 }

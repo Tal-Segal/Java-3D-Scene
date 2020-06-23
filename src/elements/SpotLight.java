@@ -20,7 +20,7 @@ public class SpotLight extends PointLight {
 	public SpotLight(Vector v,Point3D p, double kc, double kl, double kq, Color c)
 	{
 		super(p, kc, kl, kq, c);
-		_direction=v.normalize();
+		_direction=new Vector(v).normalized();
 	}
 	
 	/**
@@ -32,4 +32,5 @@ public class SpotLight extends PointLight {
         return super.getIntensity(p).scale(java.lang.Math.max(0, x)); // if x=0 the direction is
                                                                       // orthogonal and the intensity is 0
     }
+   
 }

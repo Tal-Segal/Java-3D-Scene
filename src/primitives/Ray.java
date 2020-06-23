@@ -3,6 +3,10 @@ import primitives.Vector;
 import static primitives.Util.*;
 public final class Ray {
 
+	
+	private static final double DELTA = 0.1;
+	
+	
 	Vector v;
 	Point3D p;
 	
@@ -20,12 +24,20 @@ public final class Ray {
 		}
 	}
 	
+    public Ray(Point3D point, Vector direction, Vector normal)
+    {
+	    //head+ normal.scale(±DELTA)
+          v = new Vector(direction).normalized();
+          double nv = normal.dotProduct(direction);
+	      Vector normalDelta = normal.scale((nv > 0 ? DELTA : -DELTA));
+	      p = point.add(normalDelta);
+	 }
+	
 	
 	public Ray(Ray r) {
 		v=r.v;
 		p=r.p;
 	}
-	
 	
 	public Vector getVector() {return v;}
 	
@@ -46,6 +58,7 @@ public final class Ray {
 		return "" + p.toString() +" "+ v.toString();
 	
  }
+	
 	
 	
 	public Point3D getTargetPoint(double length) 

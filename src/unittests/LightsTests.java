@@ -32,7 +32,7 @@ public class LightsTests {
         scene.addLights(new DirectionalLight(new Vector(1, -1, 1), new Color(500, 300, 0)));
 
         ImageWriter imageWriter = new ImageWriter("sphereDirectional", 150, 150, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -55,7 +55,7 @@ public class LightsTests {
         scene.addLights(new PointLight( new Point3D(-50, 50, -50), 1, 0.00001, 0.000001, new Color(500, 300, 0)));
 
         ImageWriter imageWriter = new ImageWriter("spherePoint", 150, 150, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -79,7 +79,7 @@ public class LightsTests {
                 1, 0.00001, 0.00000001,new Color(500, 300, 0)));
 
         ImageWriter imageWriter = new ImageWriter("sphereSpot", 150, 150, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -106,7 +106,7 @@ public class LightsTests {
         scene.addLights(new DirectionalLight(new Vector(0, 0, 1), new Color(300, 150, 150)));
 
         ImageWriter imageWriter = new ImageWriter("trianglesDirectional", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -134,7 +134,7 @@ public class LightsTests {
                 1, 0.0005, 0.0005, new Color(500, 250, 250)));
 
         ImageWriter imageWriter = new ImageWriter("trianglesPoint", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -161,7 +161,7 @@ public class LightsTests {
                 1, 0.0001, 0.000005, new Color(500, 250, 250)));
 
         ImageWriter imageWriter = new ImageWriter("trianglesSpot", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -191,7 +191,7 @@ public class LightsTests {
                 1, 0.0005, 0.0005, new Color(500, 250, 250)));
 
         ImageWriter imageWriter = new ImageWriter("trianglesDirectionalSpotPoint", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
