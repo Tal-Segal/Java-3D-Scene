@@ -141,10 +141,9 @@ public class ReflectionRefractionTests {
 	}
 	
 	
-	
-	
-	
-	
+	/**
+	 *Produce the final picture
+	 */
 	@Test
 	public void trianglesSphere() {
 		Scene scene = new Scene("Test scene");

@@ -10,10 +10,9 @@ import static primitives.Util.*;
 import java.util.List;
 
 
-
 public class Plane extends Geometry{
 
-	Point3D p;
+	Point3D p; //point on the plane
 	Vector v; //normal
 	/**
 	 * Constructor with color, material and 3 points
@@ -24,6 +23,9 @@ public class Plane extends Geometry{
 	 * @param p3
 	 */
 	public Plane(Color emissionLight, Material material,Point3D p1, Point3D p2, Point3D p3) {
+		super(emissionLight, material,
+	    		new Box(Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY,Double.NEGATIVE_INFINITY,
+	    				Double.POSITIVE_INFINITY,Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY));
 		p=p1;
 		Vector v1= p1.subtract(p2);
 		Vector v2= p1.subtract(p3);
@@ -54,7 +56,9 @@ public class Plane extends Geometry{
  * @param _normal
  */
     public Plane(Point3D _p, Vector _normal) {
-        super(Color.BLACK, new Material(0, 0, 0));
+        super(Color.BLACK, new Material(0, 0, 0),
+        		new Box(Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY,Double.NEGATIVE_INFINITY,
+            			Double.POSITIVE_INFINITY,Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY));
 
         this.p = new Point3D(_p);
         this.v = new Vector(_normal);
@@ -68,6 +72,8 @@ public class Plane extends Geometry{
 		return v.normalize();}
 		
     public List<GeoPoint> findIntersections(Ray ray) {
+    	if (!IsIntersectionBox(ray))
+    		return null;
         Vector p0Q;
         try {
             p0Q = p.subtract(ray.getPoint());
@@ -86,6 +92,10 @@ public class Plane extends Geometry{
         } else {
             return List.of(new GeoPoint(this, ray.getTargetPoint(t)));
         }
+    }
+    @Override
+    public boolean IsIntersectionBox(Ray ray) {
+    	return this.myBox.IntersectionBox(ray);
     }
 }
 

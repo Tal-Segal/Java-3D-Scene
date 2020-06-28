@@ -13,8 +13,8 @@ public abstract class RadialGeometry extends Geometry {
 	 * @param radius
 	 * @param material
 	 */
-	public RadialGeometry(Color emissionLight, double radius, Material material) {
-        super(emissionLight, material);
+	public RadialGeometry(Color emissionLight, double radius, Material material, Box b) {
+        super(emissionLight, material, b);
         setRadius(radius);
     }
 	/**
@@ -22,16 +22,16 @@ public abstract class RadialGeometry extends Geometry {
 	 * @param emissionLight
 	 * @param radius
 	 */
-    public RadialGeometry(Color emissionLight, double radius) {
-        super(emissionLight);
+    public RadialGeometry(Color emissionLight, double radius, Box b) {
+        super(emissionLight, b);
         setRadius(radius);
     }
     /**
      * Constructor with radius
      * @param radius
      */
-    public RadialGeometry(double radius) {
-        super();
+    public RadialGeometry(double radius, Box b) {
+        super(b);
         setRadius(radius);
     }
     /**
@@ -39,7 +39,7 @@ public abstract class RadialGeometry extends Geometry {
      * @param other
      */
     public RadialGeometry(RadialGeometry other) {
-        super(other.getEmmission(), other._material);
+        super(other.getEmmission(), other._material, other.myBox);
         setRadius(other._radius);
     }
     

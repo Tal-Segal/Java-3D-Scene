@@ -59,8 +59,7 @@ public final class Ray {
 	
  }
 	
-	
-	
+		
 	public Point3D getTargetPoint(double length) 
     {
          return isZero(length ) ?p : p.add(v.scale(length));

@@ -18,8 +18,7 @@ public class DirectionalLight extends Light implements LightSource {
 		super(c);
 		_direction=v.normalize();
 	}
-	
-	
+		
 	/**
 	 * Get the intensity from Light class
 	 * @param Point3D p
@@ -30,6 +29,7 @@ public class DirectionalLight extends Light implements LightSource {
 	{
 		return super.getIntensity();
 	}
+	
 	/**
 	 * Get the direction of the light
 	 * @param Point3D p

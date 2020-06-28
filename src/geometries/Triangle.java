@@ -52,6 +52,8 @@ public class Triangle extends Polygon {
 	@Override
 	public List<GeoPoint> findIntersections (Ray ray)
 	{
+		if(!IsIntersectionBox(ray))
+			return null;
 		//Find ray's intersection points with triangle
 		List<GeoPoint> planeIntersections = _plane.findIntersections(ray);
 	    if (planeIntersections == null) return null;
@@ -63,7 +65,6 @@ public class Triangle extends Polygon {
 	    Vector v1 = _vertices.get(0).subtract(p0).normalize();
 	    Vector v2 = _vertices.get(1).subtract(p0).normalize();
 	    Vector v3 = _vertices.get(2).subtract(p0).normalize();
-
 
 	    double s1 = v.dotProduct(v1.crossProduct(v2));
 	    if (Util.isZero(s1)) return null;

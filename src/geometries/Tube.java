@@ -14,14 +14,14 @@ public class Tube extends RadialGeometry{
 	Ray ray;
 	
 	/**
-	 * Constructon with color, material, radius and ray
+	 * Construction with color, material, radius and ray
 	 * @param emissionLight
 	 * @param _material
 	 * @param _radius
 	 * @param _ray
 	 */
 	public Tube(Color emissionLight, Material _material, double _radius, Ray _ray) {
-        super(Color.BLACK, _radius);
+        super(Color.BLACK, _radius, null);
         this._material = _material;
         this.ray = new Ray(_ray);
 
@@ -60,4 +60,9 @@ public class Tube extends RadialGeometry{
     public List<GeoPoint> findIntersections(Ray ray) {
         return null;
     }
+	
+	@Override
+	public boolean IsIntersectionBox(Ray ray) {
+		return true;
+	}
 }

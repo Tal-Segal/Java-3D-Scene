@@ -23,6 +23,7 @@ public class GeometriesTests {
 
 	/**
      * Test method for {@link geometries.Geometries#findIntersections(primitives.Ray)}.
+     * Recognize the geometry for each intersection point
      */
 	@Test
 	public void testFindIntersections()
@@ -44,16 +45,16 @@ public class GeometriesTests {
 		     
 		       // =============== Boundary Values Tests ==================
 		       
-		       // TC11: empty list
+		       // TC02: empty list
 		        assertEquals("An empty list",null,
 		        _geometries2.findIntersections(new Ray(new Vector(1, 0, 0), new Point3D(1,1,0))));
-		       // TC12: no geometry has intersection points
+		       // TC03: no geometry has intersection points
 		       assertEquals("Non geometry has intersection points",null,
 		        _geometries.findIntersections(new Ray(new Vector(0,1, 0), new Point3D(-1,0,0))));
-		      // TC13: all geometries has intersection points
+		      // TC04: all geometries has intersection points
 		       assertEquals("All geometries has intersection points", 4,
 		        _geometries.findIntersections(new Ray(new Vector(1,0,0), new Point3D(-1,0.5,0))).size());
-		       // TC14: one geometry has intersection points with the sphere
+		       // TC05: one geometry has intersection points with the sphere
 		       assertEquals("one geometry has intersection points", 2,_geometries.findIntersections(new Ray(new Vector(4,0,0), new Point3D(2.5,0,0))).size());
 		}
 			

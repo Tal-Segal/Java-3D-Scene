@@ -7,11 +7,8 @@ import primitives.Color;
  * _intensity - Color type
  */
 abstract class Light {
-	
-	
-	protected Color _intensity;
-	
-	
+		
+	protected Color _intensity; //color of light
 	
 	/**
 	 * Constructor with color

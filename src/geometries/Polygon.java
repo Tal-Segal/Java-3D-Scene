@@ -1,5 +1,5 @@
 package geometries;
-
+import geometries.Intersectable;
 import java.util.LinkedList;
 import java.util.List;
 import primitives.*;
@@ -45,11 +45,13 @@ public class Polygon extends Geometry {
      */
     public Polygon(Color emissionLight, Material material, Point3D... vertices) {
     	
-       super(emissionLight, material);
+       super(emissionLight, material, null);
        
     	if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
+        Box b = createBox();
+        this.myBox = b;
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
@@ -85,6 +87,30 @@ public class Polygon extends Geometry {
         }
     }
     /**
+     * Create Box according to the vertices
+     * @return Box
+     */
+    private Box createBox() {
+      	 
+        double x1=Double.NEGATIVE_INFINITY;
+		double x0=Double.POSITIVE_INFINITY;
+		double y1=Double.NEGATIVE_INFINITY;
+		double y0=Double.POSITIVE_INFINITY;
+		double z1=Double.NEGATIVE_INFINITY;
+		double z0=Double.POSITIVE_INFINITY;
+		//Adjust the size of the box according to the vertices
+        for(Point3D v: _vertices) {
+        	if(v.getX().get()<x0) x0=v.getX().get();
+        	if(v.getX().get()>x1) x1=v.getX().get();
+        	if(v.getY().get()<y0) y0=v.getY().get();
+        	if(v.getY().get()>y1) y1=v.getY().get();
+        	if(v.getZ().get()<z0) z0=v.getZ().get();
+        	if(v.getZ().get()>z1) z1=v.getZ().get();
+        }
+        return new Box(x0,x1,y0,y1,z0,z1);
+		
+    }
+    /**
      * Constructor with color and list of points
      * @param emissionLight
      * @param vertices
@@ -107,9 +133,43 @@ public class Polygon extends Geometry {
     
     @Override
 	public List<GeoPoint> findIntersections(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+    	if(!IsIntersectionBox(ray))
+    	{
+    		return null;
+    	}
+        List<GeoPoint> palaneIntersections = _plane.findIntersections(ray);
+        if (palaneIntersections == null)
+            return null;
+
+        Point3D p0 = ray.getPoint();
+        Vector v = ray.getVector();
+
+        Vector v1 = _vertices.get(1).subtract(p0);
+        Vector v2 = _vertices.get(0).subtract(p0);
+        double sign = v.dotProduct(v1.crossProduct(v2));
+        if (isZero(sign))
+            return null;
+
+        boolean positive = sign > 0;
+
+        for (int i = _vertices.size() - 1; i > 0; --i) {
+            v1 = v2;
+            v2 = _vertices.get(i).subtract(p0);
+            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+            if (isZero(sign)) return null;
+            if (positive != (sign > 0)) return null;
+        }
+
+        //for GeoPoint
+        List<GeoPoint> result = new LinkedList<>();
+        for (GeoPoint geo : palaneIntersections) {
+            result.add(new GeoPoint(this, geo.getPoint()));
+        }
+        return result;
 	}
 
-    
+    @Override
+	public boolean IsIntersectionBox(Ray ray) {
+		return this.myBox.IntersectionBox(ray);
+	}
 }

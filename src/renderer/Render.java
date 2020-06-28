@@ -16,7 +16,6 @@ public class Render {
 	/**
 	 * Constant double for distance between ray and light source
 	 */
-
 	private static final int MAX_CALC_COLOR_LEVEL = 30;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private int raysAmount = 9;
@@ -71,28 +70,27 @@ public class Render {
 			threads[i] = new Thread(() -> {
 				Pixel pixel = new Pixel();
 				while (thePixel.nextPixel(pixel)) {
-					       if (raysAmount == 0)
-					       {
-					    		   			Ray ray = camera.constructRayThroughPixel(Nx, Ny, pixel.col, pixel.row, distance, width, height); //finding the ray from camera to view plane        	   
-					    		   			List<GeoPoint> intersectionPoints = geometries.findIntersections(ray); //finding intersections points in view plane with that ray
-					               
-					    		   			if (intersectionPoints == null) //if there are no intersection points
-							               {
-							                   _imageWriter.writePixel(pixel.col, pixel.row, background); //paint everything with the same color and write this pixels
-							               } 
-							               else 
-							               {
-							                   GeoPoint closestPoint = getClosestPoint(intersectionPoints); //find the closest point by our function below
-							                   java.awt.Color pixelColor = calcColor(closestPoint, ray).getColor(); //calculate the specific color for this intersection point by our function below
-							                   _imageWriter.writePixel(pixel.col, pixel.row,closestPoint == null ? _scene.getBackground().getColor()
-							                   :  pixelColor); //write this pixels
-							               }	   			
-					    	   		
-					       }
-					       else {    // supersampling
-					                   List<Ray> rays = camera.constructRaysThroughPixel(Nx, Ny, pixel.col, pixel.row, distance, width, height, raysAmount);
-					                   _imageWriter.writePixel(pixel.col, pixel.row, calcColor(rays).getColor());
-					       }	
+					if (raysAmount == 0)
+				       {
+						Ray ray = camera.constructRayThroughPixel(Nx, Ny, pixel.col, pixel.row, distance, width, height); //finding the ray from camera to view plane        	   
+		    		     List<GeoPoint> intersectionPoints = geometries.findIntersections(ray); //finding intersections points in view plane with that ray
+		               	 if (intersectionPoints == null) //if there are no intersection points
+				         {
+				         _imageWriter.writePixel(pixel.col, pixel.row, background); //paint everything with the same color and write this pixels
+				          } 
+				         else 
+				         {
+				         GeoPoint closestPoint = getClosestPoint(intersectionPoints); //find the closest point by our function below
+				         java.awt.Color pixelColor = calcColor(closestPoint, ray).getColor(); //calculate the specific color for this intersection point by our function below
+				         _imageWriter.writePixel(pixel.col, pixel.row,closestPoint == null ? _scene.getBackground().getColor()
+				         :  pixelColor); //write this pixels
+				         }	   			
+				    	   		
+				       }
+				       else {    // supersampling
+				                   List<Ray> rays = camera.constructRaysThroughPixel(Nx, Ny, pixel.col, pixel.row, distance, width, height, raysAmount);
+				                   _imageWriter.writePixel(pixel.col, pixel.row, calcColor(rays).getColor());
+				       }	
 				}
 			});
    }
@@ -197,7 +195,7 @@ public void printGrid(int interval, java.awt.Color color) {
      */
     private Color calcColor(GeoPoint intersection,Ray inRay, int level, double k) {
     	
-    	if (level == 1 || k < MIN_CALC_COLOR_K) return Color.BLACK;
+    	if (level == 1 || k < MIN_CALC_COLOR_K) return Color.BLACK; //too much levels or isn't reflected/refracted anymore
     	
     	Color color = intersection.geometry.getEmmission(); 
     	
@@ -228,7 +226,6 @@ public void printGrid(int interval, java.awt.Color color) {
     		}
     	}
     	
-    	
         if (kkr > MIN_CALC_COLOR_K) {
             Ray reflectedRay = constructReflectedRay(intersection.getPoint(), inRay, n);
             GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
@@ -253,11 +250,9 @@ public void printGrid(int interval, java.awt.Color color) {
     private Ray constructReflectedRay(Point3D pointGeo, Ray inRay, Vector n) {
         Vector v = inRay.getVector();
         double vn = v.dotProduct(n);
-
         if (vn == 0) {
             return null;
         }
-
         Vector r = v.subtract(n.scale(2 * vn));
         return new Ray(pointGeo, r, n);
     }
@@ -419,6 +414,8 @@ public void printGrid(int interval, java.awt.Color color) {
 			++row;
 			if (row < _maxRows) {
 				col = 0;
+				target.row = this.row;
+		        target.col = this.col;
 				if (_counter == _nextCounter) {
 					++_percents;
 					_nextCounter = _pixels * (_percents + 1) / 100;

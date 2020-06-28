@@ -69,19 +69,19 @@ public class SphereTests {
 	// =============== Boundary Values Tests ==================
 
 	// **** Group: Ray's line crosses the sphere (but not the center)
-	// TC11: Ray starts at sphere and goes inside 
+	// TC05: Ray starts at sphere and goes inside 
 	Ray ray3 = new Ray (new Vector(0,2,2),new Point3D(0,-3,0));
 	intersectionPoints.clear();
 	intersectionPoints.add(new GeoPoint(sphere2, new Point3D(0,-1,2)));
 	ArrayList<GeoPoint> myintersectionPoints2=(ArrayList<GeoPoint>) sphere2.findIntersections(ray3);
 	assertEquals(intersectionPoints,myintersectionPoints2);
 
-	  // TC12: Ray starts at sphere and goes outside
+	  // TC06: Ray starts at sphere and goes outside
 	Ray ray4 = new Ray (new Vector(5,-2,6),new Point3D(0,-3,0));
 	ArrayList<GeoPoint> myintersectionPoints3=(ArrayList<GeoPoint>) sphere2.findIntersections(ray4);
 	assertEquals(null,myintersectionPoints3);
 	  // **** Group: Ray's line goes through the center
-	  // TC13: Ray starts before the sphere 
+	  // TC07: Ray starts before the sphere 
 	Ray ray5 = new Ray (new Vector(0,7,0),new Point3D(0,-4,0));
 	intersectionPoints.clear();
 	intersectionPoints.add(new GeoPoint(sphere2, new  Point3D(0,-3,0)));
@@ -89,52 +89,52 @@ public class SphereTests {
 	ArrayList<GeoPoint> myintersectionPoints4=(ArrayList<GeoPoint>) sphere2.findIntersections(ray5);
 	assertEquals(intersectionPoints,myintersectionPoints4);
 	 
-	  // TC14: Ray starts at sphere and goes inside 
+	  // TC08: Ray starts at sphere and goes inside 
 	Ray ray6 = new Ray (new Vector(0,-4,0),new Point3D(0,1,0));
 	intersectionPoints.clear();
 	intersectionPoints.add(new GeoPoint(sphere2, new  Point3D(0,-3,0)));
 	ArrayList<GeoPoint> myintersectionPoints5=(ArrayList<GeoPoint>) sphere2.findIntersections(ray6);
 	assertEquals(intersectionPoints,myintersectionPoints5);
 
-	  // TC15: Ray starts inside
+	  // TC09: Ray starts inside
 	Ray ray7 = new Ray (new Vector(0,5,0),new Point3D(0,-2,0));
 	intersectionPoints.clear();
 	intersectionPoints.add(new GeoPoint(sphere2, new  Point3D(0,1,0)));
 	ArrayList<GeoPoint> myintersectionPoints6=(ArrayList<GeoPoint>) sphere2.findIntersections(ray7);
 	assertEquals(intersectionPoints,myintersectionPoints6);
 
-	  // TC16: Ray starts at the center
+	  // TC10: Ray starts at the center
 	Ray ray8=new Ray(new Vector(0, 1, 0),new Point3D(1, 0, 0));
 	intersectionPoints.clear();
 	intersectionPoints.add(new GeoPoint(sphere, new Point3D(1,1,0)));
 	   List<GeoPoint> myintersectionPoints7 =sphere.findIntersections(ray8);
 	        assertEquals( intersectionPoints, myintersectionPoints7);
 
-	  // TC17: Ray starts at sphere and goes outside
+	  // TC11: Ray starts at sphere and goes outside
 	Ray ray9 = new Ray (new Vector(0,11,0),new Point3D(0,4,0));
 	ArrayList<GeoPoint> myintersectionPoints8=(ArrayList<GeoPoint>) sphere2.findIntersections(ray9);
 	assertEquals(null,myintersectionPoints8);
 	 
-	  // TC18: Ray starts after sphere
+	  // TC12: Ray starts after sphere
 	Ray ray10 = new Ray (new Vector(0,1,0),new Point3D(0,2,0));
 	ArrayList<GeoPoint> myintersectionPoints9=(ArrayList<GeoPoint>) sphere2.findIntersections(ray10);
 	assertEquals(null,myintersectionPoints9);
 	  // **** Group: Ray's line is tangent to the sphere
-	  // TC19: Ray starts before the tangent point
+	  // TC13: Ray starts before the tangent point
 	Ray ray11 = new Ray (new Vector(2.5,1,0),new Point3D(-1,1,0));
 	ArrayList<GeoPoint> myintersectionPoints10=(ArrayList<GeoPoint>) sphere2.findIntersections(ray11);
 	assertEquals(null,myintersectionPoints10);
-	  // TC20: Ray starts at the tangent point
+	  // TC14: Ray starts at the tangent point
 	Ray ray12 = new Ray (new Vector(2,0,0),new Point3D(0,1,0));
 	ArrayList<GeoPoint> myintersectionPoints11=(ArrayList<GeoPoint>) sphere2.findIntersections(ray12);
 	assertEquals(null,myintersectionPoints11);
-	  // TC21: Ray starts after the tangent point
+	  // TC15: Ray starts after the tangent point
 	Ray ray13 = new Ray (new Vector(2,0,0),new Point3D(1,1,0));
 	ArrayList<GeoPoint> myintersectionPoints12=(ArrayList<GeoPoint>) sphere2.findIntersections(ray13);
 	assertEquals(null,myintersectionPoints12);
 
 	// **** Group: Special cases
-	  // TC19: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
+	  // TC16: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
 	Ray ray14 = new Ray (new Vector(2,0,0),new Point3D(0,6,0));
 	ArrayList<GeoPoint> myintersectionPoints13=(ArrayList<GeoPoint>) sphere2.findIntersections(ray14);
 	assertEquals(null,myintersectionPoints13);

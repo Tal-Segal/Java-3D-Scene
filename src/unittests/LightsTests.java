@@ -9,7 +9,7 @@ import renderer.*;
 import scene.Scene;
 
 /**
- * Test rendering a basic image
+ * Test lighting an image
  * 
  * @author Avital & Tal
  */

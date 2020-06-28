@@ -60,7 +60,7 @@ public class Camera {
 		Vto = to.normalized();
 		Vright = (to.crossProduct(up)).normalize();
 		}
-		catch(Exception e) {System.out.println("Vectors are not parallel");}
+		catch(Exception e) {System.out.println("Vectors are not orthogonal");}
 
 
 	}
@@ -77,11 +77,16 @@ public class Camera {
 	
 	public Ray constructRayThroughPixel (int nX, int nY,int j, int i, double screenDistance,double screenWidth, double screenHeight)
 	{
+		//reach the screen
 		Point3D Pc = new Point3D(p.add(Vto.scale(screenDistance)));
+		
+		//height and width of a single pixel
 		double Ry = screenHeight / nY;
 		double Rx = screenWidth / nX;
-		
-		double yi = (i - nY / 2d)*Ry + Ry / 2d;
+		//center of pixel:
+		//j is the pixel column
+		//i is the pixel row
+		double yi = (i - nY / 2d)*Ry + Ry / 2d; //go to the beginning of pixel, then to the center
 		double xj = (j - nX / 2d)*Rx + Rx / 2d;
 		
 		Point3D Pij = Pc;
@@ -97,7 +102,7 @@ public class Camera {
         return new Ray(Vij,p);
         
 	}
-	
+	//supersampling
 	public List<Ray> constructRaysThroughPixel (int nX, int nY, int j, int i, double screenDistance, double screenWidth,
 			double screenHeight, int raysAmount)
 	{
@@ -108,7 +113,7 @@ public class Camera {
 		
 		Point3D Pc;
 		if (screenDistance!=0)
-			Pc = new Point3D(p.add(Vto.scale(screenDistance))); //center of the view plane
+			Pc = new Point3D(p.add(Vto.scale(screenDistance))); //reach the view plane
 		else
 			Pc = new Point3D(p);
 		
@@ -134,9 +139,10 @@ public class Camera {
         double PRx = Rx / numOfRays; //width distance between each ray
         
         Point3D tmp = Pij; //center
+        
         //creating a grid in the pixel:
         for (int row=0; row<numOfRays; row++) {
-        	double Pxj = (row - (numOfRays/2d)) * PRx + PRx/2d;
+        	double Pxj = (row - (numOfRays/2d)) * PRx + PRx/2d;//the distance to move on x, and its whole column
         	for (int column=0; column<numOfRays; column++) {
         		double Pyi = (column - (numOfRays/2d)) * PRy + PRy/2d;
         		if (Pxj != 0)

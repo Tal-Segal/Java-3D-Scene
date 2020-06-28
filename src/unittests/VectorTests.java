@@ -89,7 +89,7 @@ public class VectorTests {
      */
 
 	@Test
-	public void testNormalizeAndNomalized() {
+	public void testNormalizeAndNormalized() {
 		Vector v = new Vector(1, 2, 3);
 		Vector vCopy = new Vector(v);
 		Vector vCopyNormalize = vCopy.normalize();

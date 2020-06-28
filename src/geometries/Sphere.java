@@ -13,14 +13,16 @@ public class Sphere extends RadialGeometry{
 	Point3D p;
 	
 	/**
-	 * Constructor with color, material, radius and center point
+	 * Constructor with color, material, radius, box and center point
 	 * @param emissionLight
 	 * @param material
 	 * @param radius
 	 * @param center
 	 */
 	public Sphere(Color emissionLight, Material material, double radius, Point3D center) {
-        super(emissionLight, radius, material);
+        super(emissionLight, radius, material, new Box(
+        		center.getX().get()-radius,	center.getX().get()+radius,center.getY().get()-radius,
+    			center.getY().get()+radius,center.getZ().get()-radius,center.getZ().get()+radius));
         this.p = new Point3D(center);
     }
 	/**
@@ -53,19 +55,21 @@ public class Sphere extends RadialGeometry{
     @Override
     public List<GeoPoint> findIntersections(Ray ray)
     {
+    	if(!IsIntersectionBox(ray))
+    		return null;
     	Vector u;
-    	if (ray.getPoint() != Vector.ZERO) //p0 != (0,0,0)
+    	if (ray.getPoint() != Vector.ZERO) //p != (0,0,0)
     	{
-    	Vector L1 = new Vector(p); //p0  	
+    	Vector L1 = new Vector(p); //p - center of sphere	
         Vector L2=new Vector(ray.getPoint());
          try {
-          u=new Vector(L1.subtract(L2));//O-p0
+          u=new Vector(L1.subtract(L2));//O-p
              }
          catch(IllegalArgumentException e)
          {
          return List.of(new GeoPoint(
                  this,
-                 ray.getTargetPoint(this._radius)));
+                 ray.getTargetPoint(this._radius))); 
          }
     	}
     	else
@@ -74,9 +78,9 @@ public class Sphere extends RadialGeometry{
     	}
 
            double tm = u.dotProduct(ray.getVector().normalize());//tm=l*v
-           double d = Math.sqrt(Math.pow(u.length(), 2) - Math.pow(tm, 2));//(|u|^2+tm^2)^0.5
+           double d = Math.sqrt(Math.pow(u.length(), 2) - Math.pow(tm, 2));//(|u|^2+tm^2)^0.5 - distance between ray and sphere
            List<GeoPoint> intersectionPoints =  new ArrayList<GeoPoint>();
-           if (d > _radius) 
+           if (d > _radius)
            {
                return null;
            }
@@ -102,6 +106,10 @@ public class Sphere extends RadialGeometry{
            return null;
        }
 
+    @Override
+	public boolean IsIntersectionBox(Ray ray) {
+		return this.myBox.IntersectionBox(ray);
+	}
 	
     }
 

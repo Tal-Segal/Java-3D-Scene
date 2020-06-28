@@ -45,17 +45,17 @@ public class CameraTests {
                         10, 8, 8));
 
         // =============== Boundary Values Tests ==================
-        // TC11: 3X3 Center (1,1)
+        // TC05: 3X3 Center (1,1)
         assertEquals("Bad ray",  new Ray(new Vector(0, 0, 10), Vector.ZERO),
                 camera.constructRayThroughPixel(3, 3, 1, 1,
                         10, 6, 6));
 
-        // TC12: 3X3 Center of Upper Side (0,1)
+        // TC06: 3X3 Center of Upper Side (0,1)
         assertEquals("Bad ray",  new Ray(new Vector(0, -2, 10), Vector.ZERO),
                 camera.constructRayThroughPixel(3, 3, 1, 0,
                         10, 6, 6));
 
-        // TC13: 3X3 Center of Left Side (1,0)
+        // TC07: 3X3 Center of Left Side (1,0)
         assertEquals("Bad ray",  new Ray(new Vector(-2, 0, 10), Vector.ZERO),
                 camera.constructRayThroughPixel(3, 3, 0, 1,
                         10, 6, 6));
