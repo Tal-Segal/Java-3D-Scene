@@ -65,4 +65,8 @@ public class Tube extends RadialGeometry{
 	public boolean IsIntersectionBox(Ray ray) {
 		return true;
 	}
+	@Override
+	public Point3D getPositionPoint() {
+		return this.ray.getPoint();
+	}
 }

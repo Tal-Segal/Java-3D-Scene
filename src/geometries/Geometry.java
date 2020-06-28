@@ -61,4 +61,9 @@ public abstract class Geometry implements Intersectable {
 	public Box getMyBox() {
 		return myBox;
 	}
+	/**
+	 * Returns point on the geometry - for Bounding Volume Hierarchy
+	 * @return Point3D
+	 */
+	public abstract Point3D getPositionPoint();
 }

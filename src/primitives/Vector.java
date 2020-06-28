@@ -8,9 +8,9 @@ public final class Vector {
 	public static final Point3D ZERO= new Point3D(0, 0, 0);
 	
 	public Vector(Point3D _p) {
-
+/*
 			if(_p.equals(ZERO))
-				throw new IllegalArgumentException("Vector could not equals zero");
+				throw new IllegalArgumentException("Vector could not equals zero");*/
 			p=_p;
 
 	}
@@ -21,8 +21,9 @@ public final class Vector {
 	{
 
 			Point3D tmp=new Point3D(_x,_y,_z);
+			/*
 			if(tmp.equals(ZERO))
-				throw new IllegalArgumentException("Vector could not equals zero");
+				throw new IllegalArgumentException("Vector could not equals zero");*/
 			p=new Point3D(_x,_y,_z);
 
 	}

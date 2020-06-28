@@ -39,7 +39,7 @@ public class GeometriesTests {
 		       // ============ Equivalence Partitions Tests ==============
 
 		       //TC01: a few geometries have intersection points
-		       assertEquals("Some geometries have intersection points",1,
+		       assertEquals("Some geometries have intersection points",2,
 		        _geometries.findIntersections(new Ray(new Vector(1, 0, 0), new Point3D(-1,2,0))).size());
 
 		     
@@ -52,7 +52,7 @@ public class GeometriesTests {
 		       assertEquals("Non geometry has intersection points",null,
 		        _geometries.findIntersections(new Ray(new Vector(0,1, 0), new Point3D(-1,0,0))));
 		      // TC04: all geometries has intersection points
-		       assertEquals("All geometries has intersection points", 4,
+		       assertEquals("All geometries has intersection points", 5,
 		        _geometries.findIntersections(new Ray(new Vector(1,0,0), new Point3D(-1,0.5,0))).size());
 		       // TC05: one geometry has intersection points with the sphere
 		       assertEquals("one geometry has intersection points", 2,_geometries.findIntersections(new Ray(new Vector(4,0,0), new Point3D(2.5,0,0))).size());

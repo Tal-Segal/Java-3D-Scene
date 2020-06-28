@@ -97,5 +97,8 @@ public class Plane extends Geometry{
     public boolean IsIntersectionBox(Ray ray) {
     	return this.myBox.IntersectionBox(ray);
     }
+    
+    @Override
+    public Point3D getPositionPoint() {return p;}
 }
 
