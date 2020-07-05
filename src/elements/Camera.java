@@ -102,12 +102,12 @@ public class Camera {
         return new Ray(Vij,p);
         
 	}
-	//supersampling
+	//SuperSampling
 	public List<Ray> constructRaysThroughPixel (int nX, int nY, int j, int i, double screenDistance, double screenWidth,
 			double screenHeight, int raysAmount)
 	{
 		List<Ray> Rays = new ArrayList<Ray>();
-		int numOfRays = (int)Math.floor(Math.sqrt(raysAmount)); //num of rays in each row or column
+		int numOfRays = (int)Math.floor(Math.sqrt(raysAmount)); //number of rays in each row or column
 		
 		if (numOfRays==1) return List.of(constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight));
 		
@@ -134,6 +134,8 @@ public class Camera {
         {
         	Pij = Pij.add(this.Vup.scale(-yi)); //move Pij to height center
         }
+        Vector Vij=Pij.subtract(p);
+        Rays.add(new Ray(Vij,p)); //the original vector
         
         double PRy = Ry / numOfRays; //height distance between each ray
         double PRx = Rx / numOfRays; //width distance between each ray

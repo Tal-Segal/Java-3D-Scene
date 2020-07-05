@@ -15,8 +15,7 @@ abstract class Light {
 	 * @param c
 	 */
 	public Light(Color c){_intensity=c;}
-	
-	
+		
 	/**
 	 * Get the intensity
 	 * @return Color

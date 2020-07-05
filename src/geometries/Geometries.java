@@ -72,8 +72,10 @@ public class Geometries implements Intersectable
 		
 		List<GeoPoint> intersec=null; //if there is no need- do not initial the list
 		
-		for(Intersectable geo: lst)
-		{
+		if (!IsIntersectionBox(ray))
+			return null;
+		
+		for(Intersectable geo: lst) {
 			List<GeoPoint> tmp=geo.findIntersections(ray);
 			if(tmp!=null) //there are a few intersection points
 			{

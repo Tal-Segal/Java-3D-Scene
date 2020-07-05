@@ -18,7 +18,7 @@ public class Render {
 	 */
 	private static final int MAX_CALC_COLOR_LEVEL = 30;
 	private static final double MIN_CALC_COLOR_K = 0.001;
-	private int raysAmount = 9;
+	private int raysAmount = 50;
 	
     private Scene _scene;
     private ImageWriter _imageWriter;
